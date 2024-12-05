@@ -1,0 +1,25 @@
+{
+  "name": "@tronic/receiver-core",
+  "version": "0.0.1",
+  "main": "./dist/cjs/index.js",
+  "module": "./dist/esm/index.js",
+  "types": "./dist/types/index.d.ts",
+  "license": "MIT",
+  "sideEffects": false,
+  "scripts": {
+    ".": "yarn run -T turbo run --filter=@tronic/receiver-core",
+    "build": "yarn concurrently 'yarn:build:*'",
+    "build:esm": "yarn tsc -p tsconfig.build.json",
+    "build:cjs": "yarn tsc -p tsconfig.build.json --outDir ./dist/cjs --module commonjs",
+    "watch": "yarn build:esm --watch",
+    "jest": "yarn run -T jest",
+    "test": "yarn jest",
+    "tsc": "yarn run -T tsc",
+    "concurrently": "yarn run -T concurrently"
+  },
+  "packageManager": "yarn@3.4.1",
+  "dependencies": {
+    "@lukeed/uuid": "^2.0.1",
+    "dset": "^3.1.2"
+  }
+}
