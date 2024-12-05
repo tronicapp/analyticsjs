@@ -11,7 +11,7 @@ import { ReceiverCore } from './interfaces';
 import { HighEntropyHint } from '../../lib/client-hints/interfaces';
 import { CookieOptions, UniversalStorage, StorageSettings } from '../storage';
 import { PluginFactory } from '../../plugins/remote-loader';
-import { MetricsOptions } from 'core/stats/remote-metrics';
+import { MetricsOptions } from '../stats/remote-metrics';
 export interface InitOptions {
     writeKey?: string;
     timeout?: number;

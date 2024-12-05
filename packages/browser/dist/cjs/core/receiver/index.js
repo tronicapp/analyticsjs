@@ -113,6 +113,7 @@ var priority_queue_1 = require("../../lib/priority-queue");
 var storage_1 = require("../storage");
 // import { setGlobalReceiver } from '../../lib/global-receiver-helper'
 var buffer_1 = require("../buffer");
+var query_string_1 = require("../query-string");
 function createDefaultQueue(name, retryQueue, disablePersistance) {
     if (retryQueue === void 0) { retryQueue = false; }
     if (disablePersistance === void 0) { disablePersistance = false; }
@@ -445,19 +446,14 @@ var Receiver = /** @class */ (function (_super) {
     };
     Receiver.prototype.queryString = function (query) {
         return __awaiter(this, void 0, void 0, function () {
-            var queryString;
             return __generator(this, function (_a) {
-                switch (_a.label) {
-                    case 0:
-                        if (this.options.useQueryString === false) {
-                            return [2 /*return*/, []];
-                        }
-                        return [4 /*yield*/, Promise.resolve().then(function () { return __importStar(require(
-                            /* webpackChunkName: "queryString" */ '../query-string')); })];
-                    case 1:
-                        queryString = (_a.sent()).queryString;
-                        return [2 /*return*/, queryString(this, query)];
+                if (this.options.useQueryString === false) {
+                    return [2 /*return*/, []];
                 }
+                // const { queryString } = await import(
+                //   /* xebpackChunkName: "queryString" */ '../query-string'
+                // )
+                return [2 /*return*/, (0, query_string_1.queryString)(this, query)];
             });
         });
     };

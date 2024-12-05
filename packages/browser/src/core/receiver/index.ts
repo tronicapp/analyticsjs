@@ -46,7 +46,8 @@ import {
 import { PluginFactory } from '../../plugins/remote-loader'
 // import { setGlobalReceiver } from '../../lib/global-receiver-helper'
 import { popPageContext } from '../buffer'
-import { MetricsOptions } from 'core/stats/remote-metrics'
+import { MetricsOptions } from '../stats/remote-metrics'
+import { queryString } from '../query-string'
 
 type LegacyDestination = any;
 
@@ -449,9 +450,10 @@ export class Receiver
       return []
     }
 
-    const { queryString } = await import(
-      /* webpackChunkName: "queryString" */ '../query-string'
-    )
+    // const { queryString } = await import(
+    //   /* xebpackChunkName: "queryString" */ '../query-string'
+    // )
+
     return queryString(this, query)
   }
 

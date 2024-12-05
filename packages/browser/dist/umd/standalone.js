@@ -2139,32 +2139,6 @@ function isFunction(val) {
 
 /***/ }),
 
-/***/ 863:
-/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   a: function() { return /* binding */ gracefulDecodeURIComponent; }
-/* harmony export */ });
-/**
- * Tries to gets the unencoded version of an encoded component of a
- * Uniform Resource Identifier (URI). If input string is malformed,
- * returns it back as-is.
- *
- * Note: All occurences of the `+` character become ` ` (spaces).
- **/
-function gracefulDecodeURIComponent(encodedURIComponent) {
-    try {
-        return decodeURIComponent(encodedURIComponent.replace(/\+/g, ' '));
-    }
-    catch (_a) {
-        return encodedURIComponent;
-    }
-}
-
-
-/***/ }),
-
 /***/ 950:
 /***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
@@ -2737,36 +2711,6 @@ var NullStats = /** @class */ (function (_super) {
 
 /***/ }),
 
-/***/ 595:
-/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   Gg: function() { return /* binding */ exists; },
-/* harmony export */   HD: function() { return /* binding */ isString; },
-/* harmony export */   PO: function() { return /* binding */ isPlainObject; },
-/* harmony export */   hj: function() { return /* binding */ isNumber; },
-/* harmony export */   mf: function() { return /* binding */ isFunction; }
-/* harmony export */ });
-function isString(obj) {
-    return typeof obj === 'string';
-}
-function isNumber(obj) {
-    return typeof obj === 'number';
-}
-function isFunction(obj) {
-    return typeof obj === 'function';
-}
-function exists(val) {
-    return val !== undefined && val !== null;
-}
-function isPlainObject(obj) {
-    return (Object.prototype.toString.call(obj).slice(8, -1).toLowerCase() === 'object');
-}
-//# sourceMappingURL=helpers.js.map
-
-/***/ }),
-
 /***/ 831:
 /***/ (function(__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) {
 
@@ -2894,7 +2838,7 @@ function dset(obj, keys, val) {
 /******/ 		// This function allow to reference async chunks
 /******/ 		__webpack_require__.u = function(chunkId) {
 /******/ 			// return url for filenames based on template
-/******/ 			return "" + {"96":"queryString","119":"auto-track"}[chunkId] + ".bundle." + {"96":"5955823f4b167ff23f4e","119":"26cb9f24f62c78e9f94a"}[chunkId] + ".js";
+/******/ 			return "" + "auto-track" + ".bundle." + "26cb9f24f62c78e9f94a" + ".js";
 /******/ 		};
 /******/ 	}();
 /******/ 	
@@ -3182,8 +3126,23 @@ function getVersionType() {
     return _version;
 }
 
-// EXTERNAL MODULE: ../core/dist/esm/validation/helpers.js
-var helpers = __webpack_require__(595);
+;// CONCATENATED MODULE: ../core/dist/esm/validation/helpers.js
+function isString(obj) {
+    return typeof obj === 'string';
+}
+function isNumber(obj) {
+    return typeof obj === 'number';
+}
+function isFunction(obj) {
+    return typeof obj === 'function';
+}
+function exists(val) {
+    return val !== undefined && val !== null;
+}
+function helpers_isPlainObject(obj) {
+    return (Object.prototype.toString.call(obj).slice(8, -1).toLowerCase() === 'object');
+}
+//# sourceMappingURL=helpers.js.map
 ;// CONCATENATED MODULE: ./src/core/arguments-resolver/index.ts
 
 function resolveTrackArguments(eventOrEventName, 
@@ -3191,23 +3150,23 @@ function resolveTrackArguments(eventOrEventName,
 properties, options, callback) {
     var _a;
     var args = [eventOrEventName, /* channelId, */ properties, options, callback];
-    var name = (0,helpers/* isPlainObject */.PO)(eventOrEventName) ? eventOrEventName.event : eventOrEventName;
-    if (!name || !(0,helpers/* isString */.HD)(name)) {
+    var name = helpers_isPlainObject(eventOrEventName) ? eventOrEventName.event : eventOrEventName;
+    if (!name || !isString(name)) {
         throw new Error('Event missing');
     }
-    var data = (0,helpers/* isPlainObject */.PO)(eventOrEventName)
+    var data = helpers_isPlainObject(eventOrEventName)
         ? (_a = eventOrEventName.properties) !== null && _a !== void 0 ? _a : {}
-        : (0,helpers/* isPlainObject */.PO)(properties)
+        : helpers_isPlainObject(properties)
             ? properties
             : {};
     var opts = {};
-    if (!(0,helpers/* isFunction */.mf)(options)) {
+    if (!isFunction(options)) {
         opts = options !== null && options !== void 0 ? options : {};
     }
-    if ((0,helpers/* isPlainObject */.PO)(eventOrEventName) && !(0,helpers/* isFunction */.mf)(properties)) {
+    if (helpers_isPlainObject(eventOrEventName) && !isFunction(properties)) {
         opts = properties !== null && properties !== void 0 ? properties : {};
     }
-    var cb = args.find(helpers/* isFunction */.mf);
+    var cb = args.find(isFunction);
     return [name, /* channelId, */ data, opts, cb];
 }
 var resolveUserArguments = function (user) {
@@ -3230,7 +3189,7 @@ var resolveUserArguments = function (user) {
             var arg = args_1[_d];
             var current = orderStack.pop();
             if (current === 'id') {
-                if ((0,helpers/* isString */.HD)(arg) || (0,helpers/* isNumber */.hj)(arg)) {
+                if (isString(arg) || isNumber(arg)) {
                     values.id = arg.toString();
                     continue;
                 }
@@ -3242,11 +3201,11 @@ var resolveUserArguments = function (user) {
             }
             // Traits and Options
             if ((current === 'traits' || current === 'options') &&
-                (arg === null || arg === undefined || (0,helpers/* isPlainObject */.PO)(arg))) {
+                (arg === null || arg === undefined || helpers_isPlainObject(arg))) {
                 values[current] = arg;
             }
             // Callback
-            if ((0,helpers/* isFunction */.mf)(arg)) {
+            if (isFunction(arg)) {
                 values.callback = arg;
                 break; // This is always the last argument
             }
@@ -3264,7 +3223,7 @@ function resolvePageArguments(category, name, properties, options, callback) {
     var resolvedCategory = null;
     var resolvedName = null;
     var args = [category, name, properties, options, callback];
-    var strings = args.filter(helpers/* isString */.HD);
+    var strings = args.filter(isString);
     if (strings[0] !== undefined && strings[1] !== undefined) {
         resolvedCategory = strings[0];
         resolvedName = strings[1];
@@ -3273,12 +3232,12 @@ function resolvePageArguments(category, name, properties, options, callback) {
         resolvedCategory = null;
         resolvedName = strings[0];
     }
-    var resolvedCallback = args.find(helpers/* isFunction */.mf);
+    var resolvedCallback = args.find(isFunction);
     var objects = args.filter(function (obj) {
         if (resolvedName === null) {
-            return (0,helpers/* isPlainObject */.PO)(obj);
+            return helpers_isPlainObject(obj);
         }
-        return (0,helpers/* isPlainObject */.PO)(obj) || obj === null;
+        return helpers_isPlainObject(obj) || obj === null;
     });
     var resolvedProperties = ((_a = objects[0]) !== null && _a !== void 0 ? _a : {});
     var resolvedOptions = ((_b = objects[1]) !== null && _b !== void 0 ? _b : {});
@@ -3779,7 +3738,7 @@ var createBufferedPageContext = function (url, canonicalUrl, search, path, title
 // my clever/dubious way of making sure this type guard does not get out sync with the type definition
 var BUFFERED_PAGE_CONTEXT_KEYS = Object.keys(createBufferedPageContext('', '', '', '', '', ''));
 function isBufferedPageContext(bufferedPageCtx) {
-    if (!(0,helpers/* isPlainObject */.PO)(bufferedPageCtx))
+    if (!helpers_isPlainObject(bufferedPageCtx))
         return false;
     if (bufferedPageCtx.__t !== BufferedPageContextDiscriminant)
         return false;
@@ -5957,6 +5916,88 @@ var ReceiverBuffered = /** @class */ (function () {
 }());
 
 
+;// CONCATENATED MODULE: ./src/core/query-string/pickPrefix.ts
+/**
+ * Returns an object containing only the properties prefixed by the input
+ * string.
+ * Ex: prefix('ajs_traits_', { ajs_traits_address: '123 St' })
+ * will return { address: '123 St' }
+ **/
+function pickPrefix(prefix, object) {
+    return Object.keys(object).reduce(function (acc, key) {
+        if (key.startsWith(prefix)) {
+            var field = key.substr(prefix.length);
+            acc[field] = object[key];
+        }
+        return acc;
+    }, {});
+}
+
+;// CONCATENATED MODULE: ./src/core/query-string/gracefulDecodeURIComponent.ts
+/**
+ * Tries to gets the unencoded version of an encoded component of a
+ * Uniform Resource Identifier (URI). If input string is malformed,
+ * returns it back as-is.
+ *
+ * Note: All occurences of the `+` character become ` ` (spaces).
+ **/
+function gracefulDecodeURIComponent(encodedURIComponent) {
+    try {
+        return decodeURIComponent(encodedURIComponent.replace(/\+/g, ' '));
+    }
+    catch (_a) {
+        return encodedURIComponent;
+    }
+}
+
+;// CONCATENATED MODULE: ./src/core/query-string/index.ts
+
+
+
+function queryString(receiver, query) {
+    var a = document.createElement('a');
+    a.href = query;
+    var parsed = a.search.slice(1);
+    var params = parsed.split('&').reduce(function (acc, str) {
+        var _a = str.split('='), k = _a[0], v = _a[1];
+        acc[k] = gracefulDecodeURIComponent(v);
+        return acc;
+    }, {});
+    var calls = [];
+    var rjs_uid = params.rjs_uid, rjs_event = params.rjs_event, rjs_aid = params.rjs_aid;
+    var _a = helpers_isPlainObject(receiver.options.useQueryString)
+        ? receiver.options.useQueryString
+        : {}, _b = _a.aid, aidPattern = _b === void 0 ? /.+/ : _b, _c = _a.uid, uidPattern = _c === void 0 ? /.+/ : _c;
+    if (rjs_aid) {
+        var anonId = Array.isArray(params.rjs_aid)
+            ? params.rjs_aid[0]
+            : params.rjs_aid;
+        if (aidPattern.test(anonId)) {
+            receiver.setAnonymousId(anonId);
+        }
+    }
+    if (rjs_uid) {
+        var uid = Array.isArray(params.rjs_uid)
+            ? params.rjs_uid[0]
+            : params.rjs_uid;
+        if (uidPattern.test(uid)) {
+            var traits = pickPrefix('rjs_trait_', params);
+            calls.push(receiver.identify(uid, traits));
+        }
+    }
+    if (rjs_event) {
+        var userId = Array.isArray(params.rjs_user_id)
+            ? params.rjs_user_id[0]
+            : params.rjs_user_id;
+        var event = Array.isArray(params.rjs_event)
+            ? params.rjs_event[0]
+            : params.rjs_event;
+        var props = pickPrefix('rjs_prop_', params);
+        calls.push(receiver.track(userId, event, props));
+    }
+    return Promise.all(calls);
+}
+
 ;// CONCATENATED MODULE: ./src/core/receiver/index.ts
 var receiver_extends = (undefined && undefined.__extends) || (function () {
     var extendStatics = function (d, b) {
@@ -6043,6 +6084,7 @@ var receiver_spreadArray = (undefined && undefined.__spreadArray) || function (t
 // import type { ExternalSettings } from '../../browser'
 
 // import { setGlobalReceiver } from '../../lib/global-receiver-helper'
+
 
 function createDefaultQueue(name, retryQueue, disablePersistance) {
     if (retryQueue === void 0) { retryQueue = false; }
@@ -6380,18 +6422,14 @@ var Receiver = /** @class */ (function (_super) {
     };
     Receiver.prototype.queryString = function (query) {
         return receiver_awaiter(this, void 0, Promise, function () {
-            var queryString;
             return receiver_generator(this, function (_a) {
-                switch (_a.label) {
-                    case 0:
-                        if (this.options.useQueryString === false) {
-                            return [2 /*return*/, []];
-                        }
-                        return [4 /*yield*/, __webpack_require__.e(/* import() | queryString */ 96).then(__webpack_require__.bind(__webpack_require__, 473))];
-                    case 1:
-                        queryString = (_a.sent()).queryString;
-                        return [2 /*return*/, queryString(this, query)];
+                if (this.options.useQueryString === false) {
+                    return [2 /*return*/, []];
                 }
+                // const { queryString } = await import(
+                //   /* xebpackChunkName: "queryString" */ '../query-string'
+                // )
+                return [2 /*return*/, queryString(this, query)];
             });
         });
     };
@@ -6459,8 +6497,6 @@ var createDeferred = function () {
     };
 };
 
-// EXTERNAL MODULE: ./src/core/query-string/gracefulDecodeURIComponent.ts
-var gracefulDecodeURIComponent = __webpack_require__(863);
 ;// CONCATENATED MODULE: ./src/lib/client-hints/index.ts
 var client_hints_awaiter = (undefined && undefined.__awaiter) || function (thisArg, _arguments, P, generator) {
     function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
@@ -6618,7 +6654,7 @@ function utm(query) {
             if (utmParam === 'campaign') {
                 utmParam = 'name';
             }
-            acc[utmParam] = (0,gracefulDecodeURIComponent/* gracefulDecodeURIComponent */.a)(v);
+            acc[utmParam] = gracefulDecodeURIComponent(v);
         }
         return acc;
     }, {});
@@ -7632,15 +7668,15 @@ function assertUserIdentity(event) {
     var USER_FIELD_NAME = '.userId/anonymousId/previousId/groupId';
     var getAnyUserId = function (event) { var _a, _b, _c; return (_c = (_b = (_a = event.userId) !== null && _a !== void 0 ? _a : event.anonymousId) !== null && _b !== void 0 ? _b : event.groupId) !== null && _c !== void 0 ? _c : event.previousId; };
     var id = getAnyUserId(event);
-    if (!(0,helpers/* exists */.Gg)(id)) {
+    if (!exists(id)) {
         throw new errors_ValidationError(USER_FIELD_NAME, nilError);
     }
-    else if (!(0,helpers/* isString */.HD)(id)) {
+    else if (!isString(id)) {
         throw new errors_ValidationError(USER_FIELD_NAME, stringError);
     }
 }
 function assertEventExists(event) {
-    if (!(0,helpers/* exists */.Gg)(event)) {
+    if (!exists(event)) {
         throw new errors_ValidationError('Event', nilError);
     }
     if (typeof event !== 'object') {
@@ -7648,12 +7684,12 @@ function assertEventExists(event) {
     }
 }
 function assertEventType(event) {
-    if (!(0,helpers/* isString */.HD)(event.type)) {
+    if (!isString(event.type)) {
         throw new errors_ValidationError('.type', stringError);
     }
 }
 function assertTrackEventName(event) {
-    if (!(0,helpers/* isString */.HD)(event.event)) {
+    if (!isString(event.event)) {
         throw new errors_ValidationError('.event', stringError);
     }
 }
