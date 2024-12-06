@@ -23,43 +23,43 @@ export function queryString(
 
   const calls = []
 
-  const { rjs_uid, rjs_event, rjs_aid } = params
+  const { ajs_uid, ajs_event, ajs_aid } = params
   const { aid: aidPattern = /.+/, uid: uidPattern = /.+/ } = isPlainObject(
     receiver.options.useQueryString
   )
     ? receiver.options.useQueryString
     : {}
 
-  if (rjs_aid) {
-    const anonId = Array.isArray(params.rjs_aid)
-      ? params.rjs_aid[0]
-      : params.rjs_aid
+  if (ajs_aid) {
+    const anonId = Array.isArray(params.ajs_aid)
+      ? params.ajs_aid[0]
+      : params.ajs_aid
 
     if (aidPattern.test(anonId)) {
       receiver.setAnonymousId(anonId)
     }
   }
 
-  if (rjs_uid) {
-    const uid = Array.isArray(params.rjs_uid)
-      ? params.rjs_uid[0]
-      : params.rjs_uid
+  if (ajs_uid) {
+    const uid = Array.isArray(params.ajs_uid)
+      ? params.ajs_uid[0]
+      : params.ajs_uid
 
     if (uidPattern.test(uid)) {
-      const traits = pickPrefix('rjs_trait_', params)
+      const traits = pickPrefix('ajs_trait_', params)
 
       calls.push(receiver.identify(uid, traits))
     }
   }
 
-  if (rjs_event) {
-    const userId = Array.isArray(params.rjs_user_id)
-      ? params.rjs_user_id[0]
-      : params.rjs_user_id
-    const event = Array.isArray(params.rjs_event)
-      ? params.rjs_event[0]
-      : params.rjs_event
-    const props = pickPrefix('rjs_prop_', params)
+  if (ajs_event) {
+    const userId = Array.isArray(params.ajs_user_id)
+      ? params.ajs_user_id[0]
+      : params.ajs_user_id
+    const event = Array.isArray(params.ajs_event)
+      ? params.ajs_event[0]
+      : params.ajs_event
+    const props = pickPrefix('ajs_prop_', params)
     calls.push(receiver.track(userId, event, props))
   }
 
