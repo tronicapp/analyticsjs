@@ -5372,11 +5372,11 @@ var user_assign = (undefined && undefined.__assign) || function () {
 var defaults = {
     persist: true,
     cookie: {
-        key: 'rjs_user_id',
-        oldKey: 'rjs_user',
+        key: 'ajs_user_id',
+        oldKey: 'ajs_user',
     },
     localStorage: {
-        key: 'rjs_user_traits',
+        key: 'ajs_user_traits',
     },
 };
 var User = /** @class */ (function () {
@@ -5438,7 +5438,7 @@ var User = /** @class */ (function () {
         this.cookieOptions = cookieOptions;
         this.idKey = (_b = (_a = options.cookie) === null || _a === void 0 ? void 0 : _a.key) !== null && _b !== void 0 ? _b : defaults.cookie.key;
         this.traitsKey = (_d = (_c = options.localStorage) === null || _c === void 0 ? void 0 : _c.key) !== null && _d !== void 0 ? _d : defaults.localStorage.key;
-        this.anonKey = 'rjs_anonymous_id';
+        this.anonKey = 'ajs_anonymous_id';
         this.identityStore = this.createStorage(this.options, cookieOptions);
         // using only cookies for legacy user store
         this.legacyUserStore = this.createStorage(this.options, cookieOptions, function (s) { return s === StoreType.Cookie; });
@@ -5534,10 +5534,10 @@ var User = /** @class */ (function () {
 var groupDefaults = {
     persist: true,
     cookie: {
-        key: 'rjs_group_id',
+        key: 'ajs_group_id',
     },
     localStorage: {
-        key: 'rjs_group_properties',
+        key: 'ajs_group_properties',
     },
 };
 var Group = /** @class */ (function (_super) {
@@ -8039,7 +8039,7 @@ options, preInitBuffer) {
                     search = (_b = window.location.search) !== null && _b !== void 0 ? _b : '';
                     hash = (_c = window.location.hash) !== null && _c !== void 0 ? _c : '';
                     term = search.length ? search : hash.replace(/(?=#).*(?=\?)/, '');
-                    if (!term.includes('rjs_')) return [3 /*break*/, 3];
+                    if (!term.includes('ajs_')) return [3 /*break*/, 3];
                     return [4 /*yield*/, receiver.queryString(term).catch(console.error)];
                 case 2:
                     _d.sent();

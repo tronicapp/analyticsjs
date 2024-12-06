@@ -42,11 +42,11 @@ export interface UserOptions {
 const defaults = {
   persist: true,
   cookie: {
-    key: 'rjs_user_id',
-    oldKey: 'rjs_user',
+    key: 'ajs_user_id',
+    oldKey: 'ajs_user',
   },
   localStorage: {
-    key: 'rjs_user_traits',
+    key: 'ajs_user_traits',
   },
 }
 
@@ -82,7 +82,7 @@ export class User {
 
     this.idKey = options.cookie?.key ?? defaults.cookie.key
     this.traitsKey = options.localStorage?.key ?? defaults.localStorage.key
-    this.anonKey = 'rjs_anonymous_id'
+    this.anonKey = 'ajs_anonymous_id'
 
     this.identityStore = this.createStorage(this.options, cookieOptions)
 
@@ -276,10 +276,10 @@ export class User {
 const groupDefaults: UserOptions = {
   persist: true,
   cookie: {
-    key: 'rjs_group_id',
+    key: 'ajs_group_id',
   },
   localStorage: {
-    key: 'rjs_group_properties',
+    key: 'ajs_group_properties',
   },
 }
 

@@ -253,7 +253,7 @@ if (options.updateCDNOptions) {
 
   const term = search.length ? search : hash.replace(/(?=#).*(?=\?)/, '')
 
-  if (term.includes('rjs_')) {
+  if (term.includes('ajs_')) {
     await receiver.queryString(term).catch(console.error)
   }
 
